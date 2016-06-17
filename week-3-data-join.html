@@ -215,12 +215,15 @@
 
   // Binding data - this will be a very common task in our use of D3. Start by making a selectAll of <tr> elements that do not yet exist (they will soon!).
   // Then we bind our data (schools) with .data and .enter()
+  // Lastly, we append the <tr> elements, which are become our current selection because of the prior selectAll("tr")
   var rows = tbody.selectAll("tr")
     .data(schools)
-    .enter();
+    .enter()
+    .append("tr");
 
-  // At this point you can look at rows at the console and see that it is an array of data.
-  console.log(rows); 
+  // You should now see an array of <tr> elements printed out to the console, each of which should contain a __data__ property containing one object from our JSON array.
+  console.log(rows);
+
 
 
 </script>
