@@ -211,7 +211,16 @@
   var tbody = d3.select("tbody");
 
   // Erase any existing html code within tbody by replacing it with a blank string "".
-  tbody.html("")
+  tbody.html("");
+
+  // Binding data - this will be a very common task in our use of D3. Start by making a selectAll of <tr> elements that do not yet exist (they will soon!).
+  // Then we bind our data (schools) with .data and .enter()
+  var rows = tbody.selectAll("tr")
+    .data(schools)
+    .enter();
+
+  // At this point you can look at rows at the console and see that it is an array of data.
+  console.log(rows); 
 
 
 </script>
