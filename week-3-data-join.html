@@ -246,8 +246,24 @@
       .style("width", function(d) { return ((d.enrollment / MAX_ENROLLMENT) * 100) + '%' })
 
   };
-  
+
   updateTable();
+
+
+  // We can use d3.on to trigger events - note that these just change the class of the buttons when clicked, they do not trigger any other events. Still, you should be able to click on the buttons and see them change (become darker as through depressed).
+  
+  d3.select("#sort-asc")
+    .on("click", function(){
+      d3.select('#sort-desc').classed('active', false);
+      d3.select('#sort-asc').classed('active', true);
+    });
+
+  d3.select("#sort-desc")
+    .on("click", function(){
+      d3.select('#sort-asc').classed('active', false);
+      d3.select('#sort-desc').classed('active', true);
+    });
+
 
 
 </script>
