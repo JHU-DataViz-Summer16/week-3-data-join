@@ -228,8 +228,21 @@
   rows.append("td")
     .html(function(d) { return d.name });
 
+  // Same as above, except for level of the school.
+  rows.append("td")
+    .html(function(d) { return d.level_text });
 
-    
+  // Same as above, except for the number of students enrolled in the school.
+  rows.append("td")
+    .html(function(d) { return d.enrollment + ' students' });
+
+  // Same as above, calculating a percent of the space allowed that the div should fill:
+  rows.append("td")
+    .append("div")
+    .classed("bar", true)
+    .style("width", function(d) { return ((d.enrollment / MAX_ENROLLMENT) * 100) + '%' })
+
+
 
 </script>
 </body>
