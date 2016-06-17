@@ -221,10 +221,15 @@
     .enter()
     .append("tr");
 
-  // You should now see an array of <tr> elements printed out to the console, each of which should contain a __data__ property containing one object from our JSON array.
-  console.log(rows);
+  // If you run, console.log(rows), you should now see an array of <tr> elements printed out to the console, each of which should contain a __data__ property containing one object from our JSON array.
+  // console.log(rows);
+
+  // Take the rows variable and append a <td> elements containing d.name - the name of each schools for each bound data element.
+  rows.append("td")
+    .html(function(d) { return d.name });
 
 
+    
 
 </script>
 </body>
