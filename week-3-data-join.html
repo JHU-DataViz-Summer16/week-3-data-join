@@ -41,7 +41,7 @@
 <div class="controls section">
   <div class="container">
     <div class="btn-toolbar">
-      <div class="btn-group">
+      <div class="btn-group" id="sorting buttons">
         <button type="button" class="btn btn-default" id="sort-asc">Ascending</button>
         <button type="button" class="btn btn-default" id="sort-desc">Descending</button>
       </div>
@@ -207,9 +207,46 @@
 
   var MAX_ENROLLMENT = 1783;
 
-  var tbody = d3.select("tbody");
+  function updatTable(){
+    var tbody = d3.select("tbody");
+    //erase all html code within tbody
+    tbody.html("")
+    
+    var rows= tbody.selectAll("tr")
+      .data(schools) //joins the data
+      .enter()//other part of join
+      .append("tr")///adds rows
+
+    rows.append("td")
+      .html(function(d){return d.name});//any one of the objects
+
+    rows.append("td")
+     .html(function(d){return d.level_text});//any one of the objects
+
+    rows.append("td")
+     .html(function(d){return d.enrollment+'students'});//any 
+
+    rows.append("td")
+      .append("div")
+      .classed("bar", true)
+      .style("width", function(d){return ((d.enrollment/MAX_ENROLLMENT)*100) + '%'})
+  }
+  updateTable();
+  d3.select("#sort-asc")
+    .on("click", function(){
+      d3.selectAll('#sorting-buttons button').classed('active,false');
+      if (options.sorted ==='asc'){
+        options.sorted=== false;
+      } else {}
+      d3.select("#sort-asc").classed('active',true);
+      d3.select("#sort-desc").classed('active',false);
+    })
+  d3.select("#sort-desc")
+    .on("click", function(){
 
 
+      
+    })
 </script>
 </body>
 </html>
