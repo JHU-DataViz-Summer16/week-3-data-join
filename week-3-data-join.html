@@ -41,6 +41,7 @@
   <div class="header section">
     <div class="container">
       <h1>2012 Presidential Election Voter Turnout</h1>
+      <!--Source: CQPress Voting and Elections Collection-->
       <p>Organized by State</p>
     </div>
   </div>
@@ -195,7 +196,7 @@ var tbody = d3.select("tbody");
 
   d3.select("#sort-asc")
     .on("click", function (){ 
-      d3.selectAll("tr").sort(function (a,b){
+      tbody.selectAll("tr").sort(function (a,b){
       return d3.ascending(a.perc, b.perc);  });
     });
 
