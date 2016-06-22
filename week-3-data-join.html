@@ -152,17 +152,9 @@
     filtered: false
   };
 
-var tbody = d3.select("tbody");
-  function updateTable(){
+  var tbody = d3.select("tbody");
+    function updateTable(){
         var data = voting.slice();
-
-    // if (options.sorted) {
-    //   if (options.sorted === 'asc') {
-    //     data.sort(function (a, b) { return a.perc - b.perc; });
-    //   } else if (options.sorted === 'desc') {
-    //     data.sort(function (a, b) { return b.perc - a.perc; });
-    //   }
-    // }
 
     tbody.html("");
     
@@ -194,21 +186,39 @@ var tbody = d3.select("tbody");
 
   updateTable();
 
+// d3 sorting
+
   d3.select("#sort-asc")
-    .on("click", function (){ 
+    .on("click", function(){
+      d3.select('#sort-desc').classed('active', false);
+      d3.select('#sort-asc').classed('active', true);
       tbody.selectAll("tr").sort(function (a,b){
       return d3.ascending(a.perc, b.perc);  });
     });
 
-      // return options.sorted = true, options.sorted === 'asc', console.log(options.sorted);});
+  d3.select("#sort-desc")
+    .on("click", function (){ 
+      d3.select('#sort-asc').classed('active', false);
+      d3.select('#sort-desc').classed('active', true);
+      tbody.selectAll("tr").sort(function (a,b){
+      return d3.descending(a.perc, b.perc);  });
+    });
 
-updateTable();
+// d3 filtering
+
+  d3.select("#filter-w")
+    .on("click", function (){ 
+      tbody.selectAll("tr").filter(function (d){
+      return d.region === "West";  });
+    });
+
+  updateTable();
 
 </script>
 
 <div class="footer section">
-<p>Source: CQPress Voting and Elections Collection</p>
-
+  <p>Source: CQPress Voting and Elections Collection</p>
 </div>
+
 </body>
 </html>
