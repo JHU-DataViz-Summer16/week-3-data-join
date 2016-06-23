@@ -41,11 +41,11 @@
         <button type="button" class="btn btn-default" id="sort-desc">Descending</button>
       </div>
       <div class="btn-group">
-        <button type="button" class="btn btn-default" id="filter-r1">Region 1</button>
-        <button type="button" class="btn btn-default" id="filter-r2">Region 2</button>
-        <button type="button" class="btn btn-default" id="filter-r3">Region 3</button>
-        <button type="button" class="btn btn-default" id="filter-r4">Region 4</button>
-        <button type="button" class="btn btn-default" id="filter-r5">Region 5</button>
+        <button type="button" class="btn btn-default" id="fr1">Region 1</button>
+        <button type="button" class="btn btn-default" id="fr2">Region 2</button>
+        <button type="button" class="btn btn-default" id="fr3">Region 3</button>
+        <button type="button" class="btn btn-default" id="fr4">Region 4</button>
+        <button type="button" class="btn btn-default" id="fr5">Region 5</button>
       </div>
     </div>
   </div>
@@ -153,48 +153,85 @@
   // We can use d3.on to trigger events - note that these just change the class of the buttons when clicked, they do not trigger any other events. Still, you should be able to click on the buttons and see them change (become darker as through depressed).
   
   //SORT DATA 
-  //1. Calling data 
+  
+    //1. Calling data 
   var rows = tbody.selectAll("tr")
     .data(conflict)
     .enter()
     .append("tr");
 
-  //2. deleting previous data 
-  tbody.html("");
-
   //3. Aplying sorting 
-  updateTable();
   //3.1 Replacing event listener with d3.select  function 
    
-    d3.select('#sort-asc').on('click', function () {
-      if if (options.sorted === 'asc') {
-      options.sorted = false;
+  d3.select('#sort-asc').on('click', function () {
+      if (options.sorted === 'asc') {
+      rows.sort(function (a, b) { return a.Victims - b.Victims; });
     } else {
       options.sorted = 'asc';
     } 
-
-  updateTable();
-  });
-
-  d3.select('#sort-asc').on('click', function () {
-  if (options.sorted === 'desc') {
-      options.sorted = false;
-    } else {
-      options.sorted = 'desc';
-    }
-    updateTable();
-  });
-       
-  d3.select("#sort-asc")
-    .on("click", function(){
-      d3.select('#sort-desc').classed('active', false);
-      d3.select('#sort-asc').classed('active', true);
-    });
-  d3.select("#sort-desc")
-    .on("click", function(){
       d3.select('#sort-asc').classed('active', false);
       d3.select('#sort-desc').classed('active', true);
     });
+  
+  updateTable();
+  
+
+  d3.selectAll('#sort-asc').on('click', function () {
+      if (options.sorted === 'desc') {
+      rows.sort(function (a, b) { return b.Victims - a.Victims; });
+      } else {
+      options.sorted = 'desc';
+      }
+  
+  updateTable();
+  
+       
+ 
+    //FILTERING  DATA 
+  d3.select('#fr1').on('click', function () {
+    if (options.filtered === '1') {
+      options.filtered = false;
+    } else {
+      options.filtered = '1';
+    }
+    updateTable();
+  });
+  
+  d3.select('#fr2').on('click', function () {
+    if (options.filtered === '2') {
+      options.filtered = false;
+    } else {
+      options.filtered = '2';
+    }
+    updateTable();
+  });
+
+  d3.select('#fr3').on('click', function () {
+    if (options.filtered === '3') {
+      options.filtered = false;
+    } else {
+      options.filtered = '3';
+    }
+    updateTable();
+  });
+
+  d3.select('#fr4').on('click', function () {
+    if (options.filtered === '4') {
+      options.filtered = false;
+    } else {
+      options.filtered = '4';
+    }
+    updateTable();
+  });
+
+  d3.select('#fr5').on('click', function () {
+    if (options.filtered === '5') {
+      options.filtered = false;
+    } else {
+      options.filtered = '5';
+    }
+    updateTable();
+  });});
 
 </script>
 </body>
