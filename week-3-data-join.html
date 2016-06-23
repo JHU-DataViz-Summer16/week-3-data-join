@@ -152,6 +152,39 @@
   updateTable();
   // We can use d3.on to trigger events - note that these just change the class of the buttons when clicked, they do not trigger any other events. Still, you should be able to click on the buttons and see them change (become darker as through depressed).
   
+  //SORT DATA 
+  //1. Calling data 
+  var rows = tbody.selectAll("tr")
+    .data(conflict)
+    .enter()
+    .append("tr");
+
+  //2. deleting previous data 
+  tbody.html("");
+
+  //3. Aplying sorting 
+  updateTable();
+  //3.1 Replacing event listener with d3.select  function 
+   
+    d3.select('#sort-asc').on('click', function () {
+      if if (options.sorted === 'asc') {
+      options.sorted = false;
+    } else {
+      options.sorted = 'asc';
+    } 
+
+  updateTable();
+  });
+
+  d3.select('#sort-asc').on('click', function () {
+  if (options.sorted === 'desc') {
+      options.sorted = false;
+    } else {
+      options.sorted = 'desc';
+    }
+    updateTable();
+  });
+       
   d3.select("#sort-asc")
     .on("click", function(){
       d3.select('#sort-desc').classed('active', false);
@@ -162,6 +195,7 @@
       d3.select('#sort-asc').classed('active', false);
       d3.select('#sort-desc').classed('active', true);
     });
+
 </script>
 </body>
 </html>
