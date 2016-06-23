@@ -12,8 +12,9 @@
       color: white;
       padding: 1em 0 2em;
     }
-    #data-table td {
-      width: 10%
+    #data-table { table-layout: fixed; }
+    #data-table th:last child {width: 200px}
+
     }
     .bar {
       height: 20px;
@@ -37,9 +38,9 @@
         <button type="button" class="btn btn-default" id="sort-desc">Descending</button>
       </div>
       <div class="btn-group">
-        <button type="button" class="btn btn-default" id="filter-State">State</button>
-        <button type="button" class="btn btn-default" id="filter-Agency">Agency Name</button>
-        <button type="button" class="btn btn-default" id="filter-Congressional_District">Congressional District</button>
+        <button type="button" class="btn btn-default" id="filter-MARYLAND">Maryland</button>
+        <button type="button" class="btn btn-default" id="filter-VIRGINIA">Virginia</button>
+        <button type="button" class="btn btn-default" id="filter-CALIFORNIA">California</button>
       </div>
     </div>
   </div>
@@ -59,6 +60,7 @@
           <th>DUNS</th>
           <th>Contract Date</th>
           <th>Vendor Name</th>
+          <th>Chart</th>
         </tr> 
       </thead>
       <tbody>
@@ -4054,59 +4056,116 @@ function updateTable(){
   var rows = tbody.selectAll("tr")
     .data(contracts)
     .enter()
-    .append("tr");
+    .append("tr")
+    .attr("class","bar");
 
-    console.log(rows);
+  console.log(rows);
 
-    rows.append("td")
-      .html(function(d) {return d.Agency});
+  rows.append("td")
+    .html(function(d) {return d.Agency});
 
-    rows.append("td")
-      html(function(d) {return d.Annual_Contract_Revenue});
+  rows.append("td")
+    .html(function(d) {return d.Annual_Contract_Revenue});
 
-    rows.append("td")
-      html(function(d) {return d.State});
+  rows.append("td")
+    .html(function(d) {return d.State});
 
-    rows.append("td")
-      html(function(d) {return d.Country});
+  rows.append("td")
+    .html(function(d) {return d.Country});
 
-    rows.append("td")
-      html(function(d) {return d.Congressional_District});
+  rows.append("td")
+    .html(function(d) {return d.Congressional_District});
 
-    rows.append("td")
-      html(function(d) {return d.Contracting_Agency});
+  rows.append("td")
+    .html(function(d) {return d.Contracting_Agency});
 
-    rows.append("td")
-      html(function(d) {return d.Contracting_Office});
+  rows.append("td")
+    .html(function(d) {return d.Contracting_Office});
 
-    rows.append("td")
-      html(function(d) {return d.DUNS});
+  rows.append("td")
+    .html(function(d) {return d.DUNS});
 
-    rows.append("td")
-      html(function(d) {return d.Contract_Date});
+  rows.append("td")
+    .html(function(d) {return d.Contract_Date});
 
-    rows.append("td")
-      html(function(d) {return d.Annual_Vendor});
+  rows.append("td")
+    .html(function(d) {return d.Vendor});
 
-    rows.append("td")
-      .append ("div")
-      .classed("bar", true)
-      .style ("width", function(d) {return ((d.Annual_Contract_Revenue/ MAX_ANNUAL_CONTRACT_REVENUE)*100) + "%"})
-  };
+  rows.append("td")
+    .append ("div")
+    .classed("bar", true)
+    .style ("width", function(d) {return ((d.Annual_Contract_Revenue/ MAX_ANNUAL_CONTRACT_REVENUE)*100) + "%"}) 
+};
 
+updateTable();
+
+d3.select('#sort-asc')
+  .on('click', function(){
+    d3.select('#sort-desc').classed('active',false);
+    d3.select('#sort-asc').classed('active', true);
+  });
+updateTable();
+
+d3.select("#sort-desc")
+  .on("click", function(){
+    d3.select('#sort-asc').classed('active',false);
+    d3.select('#sort-desc').classed('active', true);
+  });
+updateTable();
+
+
+d3.select("#sort-asc")
+.on ('click', function(){
+  if (options.sorted === 'asc') {
+    options.sorted = false;
+  } else {
+    options.sorted = 'asc';
+  }
   updateTable();
+  });
 
-  d3.select("#sort-asc")
-    .on("click", function(){
-        d3.select('#sort-desc').classed('active',false);
-        d3.select('#sort-asc').classed('active', true);
-    });
+d3.select("#sort-desc")
+.on ('click', function(){
+  if (options.sorted === 'desc') {
+    options.sorted = false;
+  } else {
+    options.sorted = 'desc';
+  }
+  updateTable();
+  });
 
-  d3.select("#sort-desc")
-    .on("click", function(){
-        d3.select('#sort-asc').classed('active',false);
-        d3.select('#sort-desc').classed('active', true);
-    });
+d3.select("#filter-MARYLAND").classed("active",true)
+d3.select("filter-MARYLAND")
+  .on("click", function(){
+  if(options.filtered==="MARYLAND"){
+    options.filtered=false;
+  }else{
+    options.filtered="MARYLAND";
+  }
+  updateTable();
+});
+
+d3.select("#filter-VIRGINA").classed("active",true)
+d3.select("filter-VIRGINIA")
+  .on("click", function(){
+  if(options.filtered==="VIRGINIA"){
+    options.filtered=false;
+  }else{
+    options.filtered="VIRGINIA";
+  }
+  updateTable();
+});
+  
+d3.select("#filter-CALIFORNIA").classed("active",true)
+d3.select("filter-CALIFORNIA")
+  .on("click", function(){
+  if(options.filtered==="CALIFORNIA"){
+    options.filtered=false;
+  }else{
+    options.filtered="CALIFORNIA";
+  }
+  updateTable();
+});
 
 </script>
 </body>
