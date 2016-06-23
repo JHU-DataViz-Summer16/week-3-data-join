@@ -278,7 +278,7 @@ people disenfranchised in 1976, 3.34 million in 1996, and over 5.85 million in
       .on("click", function(){
       d3.selectAll("tbody tr") 
       .sort(function(a, b) {
-                return d3.descending(a.felon, b.felon);
+                return d3.ascending(a.felon, b.felon);
                             });
       });
 
@@ -286,7 +286,7 @@ people disenfranchised in 1976, 3.34 million in 1996, and over 5.85 million in
       .on("click", function(){
       d3.selectAll("tbody tr") 
       .sort(function(a, b) {
-                return d3.ascending(a.felon, b.felon);
+                return d3.descending(a.felon, b.felon);
                            });
       });
 
