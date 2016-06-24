@@ -4057,9 +4057,7 @@ function updateTable(){
     .data(contracts)
     .enter()
     .append("tr")
-    .attr("class","bar");
-
-  console.log(rows);
+    .attr("class","bar")
 
   rows.append("td")
     .html(function(d) {return d.Agency});
@@ -4099,13 +4097,6 @@ function updateTable(){
 
 updateTable();
 
-d3.select('#sort-asc')
-  .on('click', function(){
-    d3.select('#sort-desc').classed('active',false);
-    d3.select('#sort-asc').classed('active', true);
-  });
-updateTable();
-
 d3.select("#sort-desc")
   .on("click", function(){
     d3.select('#sort-asc').classed('active',false);
@@ -4113,13 +4104,14 @@ d3.select("#sort-desc")
   });
 updateTable();
 
-
 d3.select("#sort-asc")
 .on ('click', function(){
   if (options.sorted === 'asc') {
     options.sorted = false;
+  d3.select('#sort-desc').classed('active',false);
   } else {
     options.sorted = 'asc';
+  d3.select('#sort-asc').classed('active', true);
   }
   updateTable();
   });
@@ -4134,13 +4126,17 @@ d3.select("#sort-desc")
   updateTable();
   });
 
-d3.select("#filter-MARYLAND").classed("active",true)
+
 d3.select("filter-MARYLAND")
   .on("click", function(){
   if(options.filtered==="MARYLAND"){
     options.filtered=false;
+  d3.select("#filter-MARYLAND")
+    .classed("active",false)
   }else{
     options.filtered="MARYLAND";
+   d3.select("#filter-MARYLAND")
+    .classed("active",true);
   }
   updateTable();
 });
@@ -4155,7 +4151,7 @@ d3.select("filter-VIRGINIA")
   }
   updateTable();
 });
-  
+
 d3.select("#filter-CALIFORNIA").classed("active",true)
 d3.select("filter-CALIFORNIA")
   .on("click", function(){
